@@ -1,0 +1,319 @@
+7
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IA Sim</title>
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:#000;color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+}
+button{cursor:pointer;font-weight:bold;font-size:14px}
+header{
+  min-height:70px;padding:14px 6%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:#09070d;border-bottom:1px solid #29212f;
+}
+.logo{font-size:25px;font-weight:bold;letter-spacing:-1px}
+.logo span{color:#b68cff}
+.btn{
+  display:inline-block;text-decoration:none;text-align:center;
+  padding:14px 19px;border-radius:11px;
+  background:#a970ff;color:#fff;border:1px solid #a970ff;
+}
+.btn:hover{opacity:.85}
+.btn-dark{background:#100c16;color:#fff;border-color:#57416f}
+.hero{
+  min-height:78vh;padding:65px 20px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  background:radial-gradient(ellipse at 50% 35%,#302044 0%,#130d1d 42%,#000 78%);
+}
+.tag{
+  border:1px solid #634b7e;border-radius:30px;
+  padding:9px 15px;color:#d9c5ff;font-size:12px;
+  letter-spacing:1px;
+}
+h1{
+  font-size:clamp(42px,8vw,76px);
+  line-height:1.08;letter-spacing:-2px;
+  margin:28px 0 18px;
+}
+.hero p,.sub{color:#c0b7cb;line-height:1.8;max-width:650px}
+.hero p{font-size:18px}
+.buttons{
+  display:flex;gap:12px;flex-wrap:wrap;
+  justify-content:center;margin-top:25px
+}
+section{padding:65px 7%;border-top:1px solid #28202f}
+section h2{text-align:center;font-size:32px}
+.sub{text-align:center;margin:0 auto}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;margin-top:35px
+}
+.card{
+  padding:24px;background:#0d0b11;
+  border:1px solid #34263f;border-radius:16px
+}
+.card h3{font-size:20px}
+.card p{color:#bdb5c6;line-height:1.8}
+.icon{font-size:30px}
+.price{font-size:25px;color:#fff;font-weight:bold}
+.card button{
+  margin-top:10px;padding:13px 16px;
+  border:0;border-radius:10px;
+  background:#a970ff;color:#fff
+}
+#chat{
+  display:none;min-height:75vh;
+  padding:22px 4%;background:#000
+}
+.chatbox{width:100%;max-width:900px;margin:20px auto}
+.chatbox h2{font-size:27px;font-weight:500}
+#messages{width:100%;min-height:220px}
+.msg{
+  display:block;padding:18px 20px;margin:18px 0;
+  font-size:17px;line-height:1.8;
+  white-space:pre-wrap;overflow-wrap:anywhere
+}
+.user{
+  width:fit-content;max-width:90%;
+  margin-left:auto;background:#1769ff;
+  color:#fff;border-radius:22px
+}
+.bot{
+  width:100%;background:#000;color:#fff;
+  border:0;border-radius:0;padding:18px 4px
+}
+#form{
+  display:flex;align-items:flex-end;gap:10px;
+  width:100%;padding:8px 10px;
+  background:#171717;border:1px solid #454545;
+  border-radius:32px
+}
+#prompt{
+  flex:1;min-width:0;height:44px;min-height:44px;
+  max-height:180px;resize:none;overflow-y:auto;
+  background:transparent;color:#fff;
+  border:0;outline:none;padding:12px;
+  font:16px/1.5 Arial,sans-serif
+}
+#form button{
+  flex-shrink:0;width:44px;height:44px;padding:0;
+  border:0;border-radius:50%;
+  background:#fff;color:#000;font-size:21px
+}
+.note{text-align:center;color:#888;font-size:12px;margin-top:12px}
+.back{margin-bottom:15px}
+footer{
+  text-align:center;padding:28px 15px;
+  color:#827b8a;border-top:1px solid #29212f
+}
+@media(max-width:600px){
+  header{padding:14px 18px}
+  h1{letter-spacing:-1px}
+  section{padding:50px 20px}
+  .hero p{font-size:16px}
+  #chat{padding:16px 10px}
+  .msg{font-size:16px;padding:16px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">IA SIM <span>✦</span></div>
+  <button class="btn btn-dark" onclick="mostrarSecao('servicos')">
+    Serviços
+  </button>
+</header>
+
+<div id="capa">
+  <main class="hero">
+    <div class="tag">INTELIGÊNCIA ARTIFICIAL · CRIATIVIDADE</div>
+    <h1>Bem-vindo à IA Sim.</h1>
+    <p>
+      Como posso ajudar você?
+      Criamos sites para empresas, imagens criativas
+      e vídeos super-realistas com inteligência artificial.
+    </p>
+    <div class="buttons">
+      <button class="btn" onclick="abrirChat()">
+        Ir para a conversa →
+      </button>
+      <button class="btn btn-dark" onclick="mostrarSecao('como')">
+        Como meu trabalho funciona
+      </button>
+      <button class="btn btn-dark" onclick="mostrarSecao('precos')">
+        Criar meu vídeo 🎬
+      </button>
+    </div>
+  </main>
+
+  <section id="servicos">
+    <h2>Nossos serviços</h2>
+    <p class="sub">Ideias transformadas em projetos digitais.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">🎬</div>
+        <h3>Vídeos super-realistas</h3>
+        <p>Conceitos cinematográficos e vídeos feitos com ferramentas de IA.</p>
+        <button onclick="pedir('Quero solicitar um vídeo super-realista.')">
+          Solicitar vídeo
+        </button>
+      </div>
+      <div class="card">
+        <div class="icon">🖼️</div>
+        <h3>Imagens com IA</h3>
+        <p>Imagens criativas para projetos, produtos e divulgação.</p>
+        <button onclick="pedir('Quero solicitar uma imagem com IA.')">
+          Solicitar imagem
+        </button>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>Sites para empresas</h3>
+        <p>Sites personalizados para lojas, barbearias e outros negócios.</p>
+        <button onclick="pedir('Quero criar um site para minha empresa.')">
+          Solicitar site
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="como">
+    <h2>Como meu trabalho funciona</h2>
+    <p class="sub">Três etapas para organizar seu projeto.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">01</div>
+        <h3>Você explica sua ideia</h3>
+        <p>Conte o que deseja criar e os detalhes importantes.</p>
+      </div>
+      <div class="card">
+        <div class="icon">02</div>
+        <h3>Combinamos os detalhes</h3>
+        <p>Confirmamos o serviço, o preço e o prazo antes de começar.</p>
+      </div>
+      <div class="card">
+        <div class="icon">03</div>
+        <h3>Produção e entrega</h3>
+        <p>O projeto é produzido e entregue conforme combinado.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="precos">
+    <h2>Crie seu vídeo</h2>
+    <p class="sub">Conte sua ideia e solicite um orçamento.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">🎥</div>
+        <h3>Vídeo personalizado</h3>
+        <p>Informe o estilo, a duração e o que deseja mostrar.</p>
+        <p class="price">Sob orçamento</p>
+        <button onclick="pedir('Quero um orçamento para criar um vídeo com IA.')">
+          Solicitar orçamento
+        </button>
+      </div>
+    </div>
+    <p class="sub">O pagamento precisará ser configurado separadamente.</p>
+  </section>
+</div>
+
+<div id="chat">
+  <button class="btn btn-dark back" onclick="voltarCapa()">
+    ← Voltar à página inicial
+  </button>
+  <div class="chatbox">
+    <h2>Converse com a IA Sim</h2>
+    <p class="sub">Escreva sua pergunta abaixo.</p>
+    <div id="messages"></div>
+    <form id="form">
+      <textarea id="prompt" rows="1"
+        placeholder="Pergunte qualquer coisa..."
+        required></textarea>
+      <button type="submit" aria-label="Enviar">↑</button>
+    </form>
+    <p class="note">A IA precisa ser conectada a um servidor para responder de verdade.</p>
+  </div>
+</div>
+
+<footer>© 2026 IA Sim · Tecnologia e criatividade.</footer>
+
+<script>
+const capa=document.getElementById("capa");
+const chat=document.getElementById("chat");
+const promptBox=document.getElementById("prompt");
+const messages=document.getElementById("messages");
+const form=document.getElementById("form");
+
+function abrirChat(){
+  capa.style.display="none";
+  chat.style.display="block";
+  window.scrollTo(0,0);
+  promptBox.focus();
+}
+
+function voltarCapa(){
+  chat.style.display="none";
+  capa.style.display="block";
+  window.scrollTo(0,0);
+}
+
+function mostrarSecao(id){
+  capa.style.display="block";
+  chat.style.display="none";
+  setTimeout(()=>{
+    document.getElementById(id).scrollIntoView({behavior:"smooth"});
+  },50);
+}
+
+function pedir(texto){
+  abrirChat();
+  promptBox.value=texto;
+  promptBox.dispatchEvent(new Event("input"));
+  promptBox.focus();
+}
+
+function adicionarMensagem(texto,tipo){
+  const div=document.createElement("div");
+  div.className="msg "+tipo;
+  div.textContent=texto;
+  messages.appendChild(div);
+  div.scrollIntoView({behavior:"smooth",block:"end"});
+  return div;
+}
+
+promptBox.addEventListener("input",function(){
+  this.style.height="44px";
+  this.style.height=Math.min(this.scrollHeight,180)+"px";
+});
+
+form.addEventListener("submit",async function(e){
+  e.preventDefault();
+  const texto=promptBox.value.trim();
+  if(!texto)return;
+
+  adicionarMensagem(texto,"user");
+  promptBox.value="";
+  promptBox.style.height="44px";
+
+  adicionarMensagem(
+    "A interface está pronta! Para eu responder de verdade como uma IA, ainda precisamos conectar o servidor.",
+    "bot"
+  );
+});
+</script>
+
+</body>
+</html>
